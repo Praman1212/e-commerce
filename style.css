@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2&family=Raleway&family=Rubik&display=swap");
+/*  sass template */
+/* global classes */
+button, button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* typography classes */
+.font-baloon {
+  font-family: " Baloon Thambi 2", cursive;
+}
+
+.font-rale {
+  font-family: " Raleway", cursive;
+}
+
+.font-rubik {
+  font-family: " Rubik", cursive;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-16 {
+  font-size: 16px;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+/* color template */
+.color-primary {
+  color: #003859;
+}
+
+.color-primary-bg {
+  background: #003859;
+}
+
+.color-second {
+  color: #009bca;
+}
+
+.color-second-bg {
+  background: #009bca;
+}
+
+.color-yellow {
+  color: #FFD289;
+}
+
+.color-yellow-bg {
+  background: #FFD289;
+}
+
+/* top sale template */
+#top-sale .owl-carousel .item .product a {
+  overflow: hidden;
+}
+#top-sale .owl-carousel .item .product img {
+  transition: transform 0.5s ease;
+}
+#top-sale .owl-carousel .item .product img:hover {
+  transform: scale(1.1);
+}
+#top-sale .owl-carousel .owl-nav button {
+  position: absolute;
+  top: 30%;
+  outline: none;
+}
+#top-sale .owl-carousel .owl-nav button.owl-prev {
+  left: 0;
+}
+#top-sale .owl-carousel .owl-nav button.owl-prev span {
+  font-size: 35px;
+}
+#top-sale .owl-carousel .owl-nav button.owl-next {
+  right: 0;
+}
+#top-sale .owl-carousel .owl-nav button.owl-next span {
+  font-size: 35px;
+}
+
+/*   special price section */
+#special-price .grid .grid-item {
+  margin-right: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+#banner-area .owl-carousel .items img {
+  height: 650px;
+}
+
+#owl-theme .item .product a img {
+  height: 200px;
+  width: 100%;
+}
+
+#PS4 .item {
+  margin: 0px 0px;
+}
+
+/*# sourceMappingURL=style.css.map */
+
+
+.card{
+  background-color: rgb(255, 252, 252);
+  width: 30vh;
+  height: 30vh;
+}
