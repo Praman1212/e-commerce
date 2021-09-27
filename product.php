@@ -300,9 +300,7 @@ $result = $conn->query($sql);
                     Top Sale
                 </h4>
                 <hr>
-
         </div>
-
         </section> -->
 
         <!--Top Sale End-->

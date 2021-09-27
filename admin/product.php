@@ -1,18 +1,39 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shopee";
-    
-    
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    
-    if ($conn->connect_error) {
-        die("connetion failed:" . $conn->connect_error);
+// session_start();
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "shopee";
+
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+
+if ($conn->connect_error) {
+    die("connetion failed:" . $conn->connect_error);
+}
+$sql = "SELECT * FROM product ";
+$resultp = $conn->query($sql);
+
+if(isset($_POST['deletedata']))
+    {
+        $id = $_POST['delete_id'];
+
+        $sql = "DELETE FROM product WHERE id = '$id'";
+        $resulte = $conn->query($sql);
+        // echo gettype($resulte);
+
+        if($resulte)
+        {
+            echo '<script> alert("Data Deleted"); </script>';
+            header("Location:product.php");
+        }
+        else
+        {
+            echo '<script> alert("Data Not Deleted");</script>';
+        }
     }
-    $sql = "SELECT * FROM product ";
-    $resultp = $conn->query($sql);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,7 +52,7 @@
     <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+    <title>Sports Nepal</title>
 </head>
 
 <body>
@@ -44,7 +65,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">Concept</a>
+                <a class="navbar-brand" href="index.php">Sports Nepal</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -59,92 +80,11 @@
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                                 <li>
-                                    <div class="notification-title"> Notification</div>
-                                    <div class="notification-list">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">John Abraham </span>is now following you
-                                                        <div class="notification-date">2 days ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
                                 </li>
                                 <li>
                                     <div class="list-footer"> <a href="#">View all notifications</a></div>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
-                            <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
-                                <li class="connection-list">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/github.png" alt="" > <span>Github</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="conntection-footer"><a href="#">More</a></div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
-                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
-                                <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
-                                    <span class="status"></span><span class="ml-2">Available</span>
-                                </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -233,6 +173,32 @@
                     <!-- ============================================================== -->
                     <!-- end pageheader  -->
                     <!-- ============================================================== -->
+                    <div class="modal fade" id = "deletemodal" tabindex = "-1" role = "dialog" aria-labrlledby = "exampleModalLabel" aria-hidden = "true">
+                        <div class="modal-dialog" role = "document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class = "modal-title" id = "exampleModalLabel">
+                                        Delete Users Data
+                                    </h5>
+                                    <button type ="button" class = "close" data-dismiss = "modal" aria-label = "Close">
+                                        <span aria-hidden = "true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action = "#" method = "POST">
+                                    <div class = "modal-body">
+                                        <input type = "hidden" name = "delete_id" id= "delete_id">
+                                        <h4> Do you want to Delete this Data ??</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type = "button" class ="btn btn-sceondary" data-dismiss ="modal" >NO</button>
+                                        <button type = "submit" name = "deletedata" class = "btn btn-primary">Yes !! Delete it</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="ecommerce-widget">
 
                         <div class="row">
@@ -242,6 +208,7 @@
 
                                           <!-- recent orders  -->
                             <!-- ============================================================== -->
+                          
                             <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <h5 class="card-header">Recent Orders</h5>
@@ -260,23 +227,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php while($row = $resultp->fetch_assoc()) { ?>
+                                                <?php while ($row = $resultp->fetch_assoc()) {?>
                                                     <tr>
-                                                        <td><?php echo $row['item_id'] ?></td>
-                                                        <td><?php echo $row['item_brand'] ?></td>
-                                                        <td><?php echo $row['item_name'] ?></td>
-                                                        <td><?php echo $row['item_price'] ?></td>
-                                                        <td><img src = "<?php echo $row['item_id'] ?>"></td>
+                                                        <td><?php echo $row['item_id']; ?></td>
+                                                        <td><?php echo $row['item_brand']; ?></td>
+                                                        <td><?php echo $row['item_name']; ?></td>
+                                                        <td><?php echo $row['item_price']; ?></td>
+                                                        <td><img src = ".././assets/<?php echo $row['item_image']?>" ></td>
                                                         <td><?php echo $row['sport_product'] ?></td>
-                                                        <td><input type = "submit" class = "btn btn-danger" value = "Remove"></td>
+                                                        <td><input type = "button" class = "btn btn-danger deletebtn" value = "Remove"></td>
                                                     <tr>
-                                                <?php } ?>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                          
+                        </section>
                             <!-- ============================================================== -->
                             <!-- end recent orders  -->
 
@@ -322,6 +291,7 @@
     <script src="assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
     <script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="assets/libs/js/dashboard-ecommerce.js"></script>
+    <script src = "documentation/js/index.js"></script>
 </body>
  
 </html>
