@@ -170,21 +170,11 @@ $resultc = $conn->query($sql);
                                             <?php echo $row['item_name'] ?>
                                         </h6>
                                         <div class="rating text-warning font-size-12">
-                                            <span>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                            <span>
-                                                <i class="far fa-star"></i>
-                                            </span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
                                         </div>
                                         <div class="price py-2">
                                             <span><?php echo 'Rs ' . $row['item_price'] ?></span>
@@ -235,7 +225,25 @@ $resultc = $conn->query($sql);
                                 <div class="item py-2" style="width: 200px;">
                                     <div class="product font-rale">
                                         <a href="product.php?id=<?php echo $row['item_id']; ?>">
-                                            <img src="<?php echo $row['item_image'] ?>" alt="product" class="img-fluid"  style = "height:20vh">
+                                            <<?php
+                                                        $curr_img=$row['item_image'];
+                                                        $row_arr=array();
+                                                       $row_arr=explode("/",$curr_img);                                                        
+                                                         
+                                                        
+                                                        if ($row_arr[1]=="product_img") {
+                                                        
+                                                             $a ="../product_img/";
+                                                             $b = $row_arr[2];
+                                                             $c = $a.$b;
+                                                             ?>
+                                                             <td class="border-0"><img src = "<?php echo $c; ?>" style = "height:40px; width:40px;"/>
+                                                             </td>
+                                                       <?php } else { ?>
+                                                            
+                                                        <td class="border-0"><img src = "<?php echo $row['item_image'] ?>" style = "height:40px; width:40px;"></td>
+                                                        
+                                                        <?php } ?>
                                         </a>
                                         <div class="text-center">
                                             <h6>
@@ -527,8 +535,9 @@ $resultc = $conn->query($sql);
     </div>
     <!--End footer-->
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -539,11 +548,9 @@ $resultc = $conn->query($sql);
     <!--JS ISOTOP CDN-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
-
-
-    <!--Addition of JavaScript-->
-    <script src="./index.js"></script>
+    
     <script>
+        console.log('thik xa ');
         var cart = {}
 
         function add(id) {
@@ -563,6 +570,7 @@ $resultc = $conn->query($sql);
         }
     </script>
     <script>
+        console.log('thik xa 2 ');
         var carts = {}
 
         function adds(id) {
@@ -581,5 +589,9 @@ $resultc = $conn->query($sql);
             }
         }
     </script>
+    <!--Addition of JavaScript-->
+    <script src="./index.js"></script>
+    
+
 </body>
 </html>

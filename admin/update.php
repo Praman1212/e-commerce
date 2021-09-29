@@ -1,4 +1,27 @@
 <?php
+include 'conn.php';
+
+if(isset($_POST["submit"])) 
+{
+    $item_id = $_GET['item_id'];
+    $item_brand = $_POST['item_brand'];
+    $item_name = $_POST['item_name'];
+    $item_price = $_POST['item_price'];
+    $item_image = $_POST['item_image'];
+    $sport_product = $_POST['sport_product'];
+
+    echo $item_id.$item_brand.$item_name.$item_price.$sport_product;
+
+    $q = " UPDATE `product` SET item_id = $item_id, item_brand = $item_brand, item_name = $item_name, item_price = $item_price,item_image = $item_image, sport_product = $sport_product WHERE item_id = $item_id ";
+
+    $query = mysqli_query($con , $q);
+    header('location : product.php');
+}
+?>
+
+?>
+
+<?php
     $link = mysqli_connect("localhost","root","");
     
     mysqli_select_db($link, "shopee");
@@ -75,28 +98,8 @@
         <button class = "btn btn-primary" name = "submit" style = "border: none; outline : none; border-bottom: 1px solid black ;border-radius:5px;transform:translate(-25vh,0vh);">Submit</button>
     </td>
 </form>
-<?php
-if(isset($_POST["submit"])) 
-{
-    $v1 = rand(1111,9999);
-    $v2 = rand(1111,9999);
 
-    $v3 = $v1.$v2;
-    $v3 = md5($v3);
 
-    $brand = $_POST['item_brand'];
-    $name =$_POST['item_name'];
-    $price = $_POST['item_price'];
-    $type = $_POST['sport_product'];
-    
-    $fnm = $_FILES["item_image"]["name"];
-    $dst = "./product_img/" .$v3.$fnm;
-    $dst1 = "product_img/" .$v3.$fnm;
-    move_uploaded_file($_FILES["item_image"]["tmp_name"],$dst);
-
-    mysqli_query($link, "INSERT INTO `product`( `item_brand`, `item_name`, `item_price`, `item_image`, `sport_product`) VALUES('$brand','$name','$price','$dst1','$type')");
-}
-?>
    
 </body>
 </html>

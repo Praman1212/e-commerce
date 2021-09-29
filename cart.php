@@ -175,11 +175,25 @@ session_start();
               session_abort();            
           }
           ?>
-              <form class = "form" action="" method = "post">
-                <input type = "radio"  value = "Cash on Delivery" name = "Cash on Delivery" checked>
-                <label for="cash on delivery">Cash On Delivery</label><br>
-                <input class = "btn btn-primary" type = "submit" name = "submit" value = "Make Purchase">
-              </form>
+        <form class = "form" action="" method = "post">
+             <input type = "radio"  value = "Cash on Delivery" name = "Cash on Delivery" checked>
+             <label for="cash on delivery">Cash On Delivery</label><br>
+             <input class = "btn btn-primary" type = "submit" name = "submit" value = "Make Purchase"><br><br>
+             </form>
+             <form action="https://uat.esewa.com.np/epay/main" method="POST">
+             <input value="100" name="tAmt" type="hidden">
+             <input value="90" name="amt" type="hidden">
+             <input value="5" name="txAmt" type="hidden">
+             <input value="2" name="psc" type="hidden">
+             <input value="3" name="pdc" type="hidden">
+             <input value="epay_payment" name="scd" type="hidden">
+             <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d453" name="pid" type="hidden">
+             <input value="http://merchant.com.np/page/esewa_payment_success?q=su" type="hidden" name="su">
+             <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
+             <input type = "radio"  value = "Cash on Delivery" name = "Cash on Delivery" checked>
+             <label for="cash on delivery">Pay with esewa</label>
+            <input value="Make Purchase" type="submit" class="btn btn-primary">
+      </form>
             <?php 
           ?>
           <?php
@@ -193,6 +207,7 @@ session_start();
       var iquantity = document.getElementsByClassName('iquantity');
       var itotal = document.getElementsByClassName('itotal');
       var gtotal = document.getElementById('gtotal');
+      conslole.log(gt);
 
       function subTotal()
       {
@@ -204,7 +219,7 @@ session_start();
         }
         gtotal.innerText = gt;
       }
-
+      
       subTotal();
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

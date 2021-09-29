@@ -1,40 +1,3 @@
-<?php
-// session_start();
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "shopee";
-
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-if ($conn->connect_error) {
-    die("connetion failed:" . $conn->connect_error);
-}
-$sql = "SELECT * FROM product ";
-$resultp = $conn->query($sql);
-
-if(isset($_POST['deletedata']))
-    {
-        $id = $_POST['delete_id'];
-
-        $sql = "DELETE FROM product WHERE id = '$id'";
-        $resulte = $conn->query($sql);
-        // echo gettype($resulte);
-
-        if($resulte)
-        {
-            echo '<script> alert("Data Deleted"); </script>';
-            header("Location:product.php");
-        }
-        else
-        {
-            echo '<script> alert("Data Not Deleted");</script>';
-        }
-    }
-
-?>
 <!doctype html>
 <html lang="en">
  
@@ -52,6 +15,7 @@ if(isset($_POST['deletedata']))
     <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <!-- <link media ="D:\Xamp\htdocs\ecommerce\assets"> -->
     <title>Sports Nepal</title>
 </head>
 
@@ -69,25 +33,6 @@ if(isset($_POST['deletedata']))
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item">
-                            <div id="custom-search" class="top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                                <li>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
             </nav>
         </div>
         <!-- ============================================================== -->
@@ -121,22 +66,13 @@ if(isset($_POST['deletedata']))
                                         <li class="nav-item">
                                             <a class="nav-link" href="cart.php">Cart List</a>
                                         </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
-                                <div id="submenu-5" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/general-table.html">General Tables</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">Data Tables</a>
+                                            <a class="nav-link" href="additem.php">Add Product</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
+                            
                         </ul>
                     </div>
                 </nav>
@@ -214,36 +150,63 @@ if(isset($_POST['deletedata']))
                                     <h5 class="card-header">Recent Orders</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-light">
-                                                    <tr class="border-0">
+                                            <table class="table table-striped table-hover table-bordered">
+                                                    <tr class = "text-white text-center">
                                                         <th class="border-0">Item Id</th>
                                                         <th class="border-0">Item Brand</th>
                                                         <th class="border-0">Item Name</th>
                                                         <th class="border-0">Item Price</th>
                                                         <th class="border-0">Item Image</th>
                                                         <th class="border-0">Item Type</th>
-                                                        <th class="border-0"><input type = "submit" class = "btn btn-primary" value = "Add Products"></th>
+                                                        <th class="border-0">Delete</th>
+                                                        <th class="border-0">Update</th>
+                                                        <th class="border-0"><a href = "additem.php"><input type = "submit" class = "btn btn-primary" value = "Add Products"></a></th>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php while ($row = $resultp->fetch_assoc()) {?>
+                                                    <?php
+                                                        include 'conn.php';
+
+                                                        $q = "SELECT * FROM product";
+                                                        
+                                                        $query = mysqli_query($con,$q);
+
+                                            while($res = mysqli_fetch_array($query))
+                                            {           
+                                                    ?>
+                        
                                                     <tr>
-                                                        <td><?php echo $row['item_id']; ?></td>
-                                                        <td><?php echo $row['item_brand']; ?></td>
-                                                        <td><?php echo $row['item_name']; ?></td>
-                                                        <td><?php echo $row['item_price']; ?></td>
-                                                        <td><img src = ".././assets/<?php echo $row['item_image']?>" ></td>
-                                                        <td><?php echo $row['sport_product'] ?></td>
-                                                        <td><input type = "button" class = "btn btn-danger deletebtn" value = "Remove"></td>
-                                                    <tr>
-                                                    <?php } ?>
-                                                </tbody>
+                                                        <td class="border-0"><?php echo $res['item_id'] ?></th>
+                                                        <td class="border-0"><?php echo $res['item_brand'] ?></th>
+                                                        <td class="border-0"><?php echo $res['item_name'] ?></th>
+                                                        <td class="border-0"><?php echo $res['item_price'] ?></th>
+                                                        <?php
+                                                        $curr_img=$res['item_image'];
+                                                        $res_arr=array();
+                                                       $res_arr=explode("/",$curr_img);                                                        
+                                                         
+                                                        
+                                                        if ($res_arr[1]=="assets") {
+                                                            print_r($res_arr[1]);
+                                                             $a ="../assets/";
+                                                             $b = $res_arr[2];
+                                                             $c = $a.$b;
+                                                             ?>
+                                                             <td class="border-0"><img src = "<?php echo $c; ?>" style = "height:40px; width:40px;"/>
+                                                             </td>
+                                                       <?php } else { ?>
+                                                            
+                                                        <td class="border-0"><img src = "<?php echo $res['item_image'] ?>" style = "height:40px; width:40px;"></td>
+                                                        
+                                                        <?php } ?>
+                                                        <td class="border-0"><?php echo $res['sport_product'] ?></th>
+                                                        <td class="border-0"><button class = "btn-danger btn"><a href = "delete.php?item_id=<?php echo $res['item_id']; ?>" class = "text-white">Delete</a></button></th>
+                                                        <td class="border-0"><button class = "btn-primary btn"><a href = "update.php?item_id=<?php echo $res['item_id']; ?>" class = "text-white">Update</a></button></th>
+                                                       </tr>
+                                        <?php } ?>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                                       </div>
                           
                         </section>
                             <!-- ============================================================== -->
